@@ -1,17 +1,26 @@
-def win(matrix, y ,k):
+def win(matrix):
+    x = 0
+    while x < len(matrix):
+        i = 0
+        while i < len(matrix[x]):
+            if matrix[x][i] != '-1':
+                break
+            i +=1
+        if i == len(matrix[x]):
+            return True
+        x += 1
+    
     i = 0
-    while i < len(matrix[y]):
-        if matrix[y][i] != '-1':
-            return False
+    while i < len(matrix[0]):
+        x = 0
+        while x < len(matrix):
+            if matrix[x][i] != '-1':
+                break
+            x += 1
+        if x == len(matrix):
+            return True
         i += 1
-    if i == len(matrix[y]):
-        return True
-    i = 0
-    while i < len(matrix):
-        if matrix[i][k] != '-1':
-            return False
-    if i == len(matrix):
-        return True
+    return False
 
 def winning_grid(matrix, number):
     total = 0
@@ -23,7 +32,7 @@ def winning_grid(matrix, number):
     exit (0)
 
 def main():
-    fileObj = open("test.txt", "r")
+    fileObj = open("input.txt", "r")
     input = fileObj.read().splitlines()
 
     numbers = input[0].split(",")
@@ -33,7 +42,6 @@ def main():
     idx = 0
     last_win = []
     last_win_nbr = 0
-    new_win = False
 
     while idx < len(input):
         if len(input[idx]) > 0:
@@ -47,28 +55,16 @@ def main():
     for nbr in numbers:
         i = 0
         while i < len(grids):
-            #goto
             for y in range(len(grids[i])):
                 for k in range(len(grids[i][y])):
                     if (grids[i][y][k] == nbr):
                         grids[i][y][k] = '-1'
-                    if win(grids[i], y, k):
-                        print('win', nbr)
-                        last_win = grids[i]
-                        last_win_nbr = nbr
-                        del grids[i:i+1]
-                        print(grids)
-                        new_win = True
-                        break
-                if (new_win == True):
-                    break
+            if win(grids[i]):
+                last_win = grids[i]
+                last_win_nbr = nbr
+                del grids[i:i+1]
+                i -= 1
             i += 1
-            if (new_win == True):
-                new_win = False
-                i = 0
-                # break
-                ## modifier boucles pour remplacer les matchs dans toutes les grilles
-
     winning_grid(last_win, last_win_nbr)
 
 if __name__ == "__main__":
