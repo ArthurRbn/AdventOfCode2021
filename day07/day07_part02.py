@@ -1,30 +1,29 @@
 from os import O_TRUNC
 
-def toAgeArray(input):
-    tab = []
-    for i in range(9):
-        tab.append(0)
-    for fish in input:
-        tab[fish] += 1
-    return tab
+def calculate_fuel(distance):
+    fuel = 0
+    for i in range(1, distance + 1):
+        fuel += i
+    return fuel
 
 def main():
     fileObj = open("input.txt", "r")
     input = fileObj.read().splitlines()
-    fish = input[0].split(',')
+    crabs = input[0].split(',')
 
-    i = 0
-    while i < len(fish):
-        fish[i] = int(fish[i])
-        i += 1
-    ages = toAgeArray(fish)
-    for i in range(256):
-        newFish = ages[0]
-        for y in range(len(ages) - 1):
-            ages[y] = ages[y + 1]
-        ages[6] += newFish
-        ages[8] = newFish
-    print(sum(ages))
+    for i in range(len(crabs)):
+        crabs[i] = int(crabs[i])
+    nearest  = min(crabs)
+    furthest = max(crabs)
+
+    fuel = 1000000000000000
+    for i in range (nearest, furthest + 1):
+        newTry = 0
+        for crab in crabs:
+            newTry += calculate_fuel(abs(i - crab))
+        if newTry < fuel:
+            fuel = newTry
+    print(fuel)
 
 
 if __name__ == "__main__":
