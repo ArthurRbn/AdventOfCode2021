@@ -11,10 +11,6 @@ def main():
             lineArr.append(int(char))
         intTab.append(lineArr)
 
-    # for i in range(len(intTab)):
-    #     for j in range(len(intTab[i])):
-    #         print(intTab[i][j], end="")
-    #     print()
     riskLevel = 0
     for i in range(len(intTab)):
         for j in range(len(intTab[i])):
@@ -27,7 +23,6 @@ def main():
             if j < len(intTab[i]) - 1 and intTab[i][j] >= intTab[i][j + 1]:
                 continue
             riskLevel += intTab[i][j] + 1
-            # print(intTab[i][j])
     print(riskLevel)
     
 if __name__ == "__main__":
