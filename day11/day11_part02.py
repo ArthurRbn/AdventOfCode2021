@@ -24,13 +24,6 @@ def recurse(tab, i, j):
     return tab
 
 def processFlash(tab):
-    # for line in tab:
-    #     for i in line:
-    #         print(i[0], end="")
-    #     print()
-    # print()
-    # print("=====================")
-    # print()
     for i in range(len(tab)):
         for j in range(len(tab[i])):
             if tab[i][j][0] > 9 and tab[i][j][1] == False:
